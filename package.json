@@ -1,0 +1,15 @@
+{
+  "name": "vitechassignment",
+  "version": "1.0.0",
+  "description": "",
+  "author": "", 
+  "license": "ISC",
+  "workspaces": [
+    "/*"
+  ],
+  "scripts": {
+    "dev:backend": "npm run dev -w @monorepo/backend",
+    "dev:frontend": "npm run dev -w @monorepo/frontend",
+    "build:all": "npm run build --workspaces --if-present"
+  }
+}
