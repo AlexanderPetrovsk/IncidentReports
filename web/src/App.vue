@@ -1,11 +1,13 @@
-<script setup lang="ts"></script>
-
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
-</template>
+  <div class="min-h-screen bg-slate-100">
+    <header class="bg-white shadow-sm border-b mb-6">
+      <div class="flex items-center justify-between p-6 bg-red-900">
+        <h1 class="text-4xl font-bold text-white">Incident Management</h1>
+      </div>
+    </header>
 
-<style scoped></style>
+    <main class="mx-auto max-w-[1500px] p-6">
+      <RouterView />
+    </main>
+  </div>
+</template>

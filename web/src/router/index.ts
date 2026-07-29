@@ -1,8 +1,14 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import IncidentBoardView from '@/modules/incidents/pages/IncidentBoardView.vue';
+import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [],
-})
+  routes: [
+    {
+      path: '/',
+      component: IncidentBoardView,
+    },
+  ],
+});
 
-export default router
+export default router;

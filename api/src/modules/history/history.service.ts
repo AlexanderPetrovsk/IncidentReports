@@ -1,6 +1,7 @@
 import { Incident, IncidentHistoryType } from "@prisma/client";
 import { HistoryRepository } from "./history.repository";
-import { dateToIsoString, determineHistoryType } from "./utils/history.utils";
+import { determineHistoryType } from "./utils/history.utils";
+import { dateToIsoString } from "@monorepo/shared/utils/shared.utils";
 
 type TrackableField =
   | "title"
