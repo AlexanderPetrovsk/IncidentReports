@@ -1,0 +1,25 @@
+import { createApp } from "./app";
+// import { prisma } from "./prisma/client";
+
+const PORT = Number(process.env.PORT) || 8000;
+
+async function bootstrap() {
+  // await prisma.$connect();
+
+  const app = createApp();
+
+  const server = app.listen(PORT);
+
+  // const shutdown = () => {
+  //   server.close(async () => {
+  //     await prisma.$disconnect();
+
+  //     process.exit(0);
+  //   });
+  // };
+
+  // process.on("SIGINT", shutdown);
+  // process.on("SIGTERM", shutdown);
+}
+
+bootstrap();
