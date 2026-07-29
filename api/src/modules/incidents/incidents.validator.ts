@@ -1,6 +1,9 @@
 import { z } from "zod";
 
-import { IncidentPriority, IncidentStatus } from "./enums/incident.enums";
+import {
+  IncidentPriority,
+  IncidentStatus,
+} from "@monorepo/shared/types/incident.types";
 
 export const createIncidentSchema = z.object({
   title: z.string().min(3).max(200),
@@ -9,9 +12,9 @@ export const createIncidentSchema = z.object({
 
   priority: z.enum(IncidentPriority),
 
-  dueDate: z.iso.datetime().nullable().optional(),
+  dueDate: z.string().date().nullable().optional(),
 
-  resolutionNote: z.string().min(5).optional(),
+  resolutionNote: z.string().min(5).optional().nullable(),
 });
 
 export const updateIncidentSchema = createIncidentSchema.partial().extend({

@@ -9,7 +9,7 @@ import type {
   UpdateIncidentInput,
 } from "./incidents.validator";
 import { mapIncidentToDto } from "./dto/incidents.dto";
-import { IncidentStatus } from "./enums/incident.enums";
+import { IncidentStatus } from "@monorepo/shared/types/incident.types";
 import { IncidentHistoryType } from "@prisma/client";
 
 export class IncidentService {
@@ -26,9 +26,7 @@ export class IncidentService {
 
     const incident = await this.repository.create({
       ...data,
-
       dueDate: data.dueDate ? new Date(data.dueDate) : null,
-
       status: IncidentStatus.NEW,
     });
 
@@ -37,9 +35,9 @@ export class IncidentService {
       "CREATED" as IncidentHistoryType,
     );
 
-    const fullIncident = await this.repository.findById(incident.id);
+    const createdIncident = await this.repository.findById(incident.id);
 
-    return mapIncidentToDto(fullIncident);
+    return mapIncidentToDto(createdIncident);
   };
 
   findAll = async (query: any) => {
@@ -65,7 +63,10 @@ export class IncidentService {
   update = async (id: string, data: UpdateIncidentInput) => {
     const incident = await this.findById(id);
 
-    validateResolution(data.status, data.resolutionNote);
+    validateResolution(
+      data.status,
+      data.resolutionNote ?? incident.resolutionNote,
+    );
 
     if (incident.status === IncidentStatus.CLOSED) {
       throw new ConflictError("Closed incidents cannot be edited.");
@@ -78,14 +79,21 @@ export class IncidentService {
       throw new ConflictError("Incident cannot be moved to this status.");
     }
 
-    const updatedIncident = await this.repository.update(id, {
-      ...data,
-      dueDate: data.dueDate ? new Date(data.dueDate) : undefined,
+    const updateData = data.dueDate
+      ? {
+          ...data,
+          dueDate: data.dueDate ? new Date(data.dueDate) : null,
+        }
+      : data;
+
+    await this.historyService.recordManyChanges(incident, {
+      ...incident,
+      ...updateData,
     });
 
-    await this.historyService.recordManyChanges(incident, updatedIncident);
+    const updatedIncident = await this.repository.update(id, updateData);
 
-    return updatedIncident;
+    return mapIncidentToDto(updatedIncident);
   };
 
   delete = async (id: string) => {

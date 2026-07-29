@@ -1,4 +1,4 @@
-import { IncidentStatus } from "@/modules/incidents/enums/incident.enums";
+import { IncidentStatus } from "@monorepo/shared/types/incident.types";
 
 const transitions = {
   [IncidentStatus.NEW]: [IncidentStatus.IN_PROGRESS],
@@ -15,15 +15,15 @@ const transitions = {
   [key: string]: IncidentStatus[];
 };
 
-export function canTransition(
+export const canTransition =(
   from: IncidentStatus,
   to: IncidentStatus,
-): boolean {
+): boolean =>{
   return transitions[from].includes(to);
 }
 
-export function getAvailableTransitions(
+export const getAvailableTransitions = (
   status: IncidentStatus,
-): IncidentStatus[] {
+): IncidentStatus[] => {
   return [...transitions[status]];
 }

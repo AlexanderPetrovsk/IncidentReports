@@ -1,21 +1,19 @@
 import { Incident } from "@prisma/client";
 import {
-  IncidentAction,
   IncidentPriority,
   IncidentStatus,
-} from "@/modules/incidents/enums/incident.enums";
+} from "@monorepo/shared/types/incident.types";
 import { ValidationError } from "@/utils/errors";
 
 const actions = {
-  [IncidentStatus.NEW]: [
-    IncidentAction.EDIT,
-    IncidentAction.DELETE,
-    IncidentAction.START,
+  [IncidentStatus.NEW]: [IncidentStatus.IN_PROGRESS],
+
+  [IncidentStatus.IN_PROGRESS]: [IncidentStatus.RESOLVED],
+
+  [IncidentStatus.RESOLVED]: [
+    IncidentStatus.CLOSED,
+    IncidentStatus.IN_PROGRESS,
   ],
-
-  [IncidentStatus.IN_PROGRESS]: [IncidentAction.EDIT, IncidentAction.RESOLVE],
-
-  [IncidentStatus.RESOLVED]: [IncidentAction.CLOSE, IncidentAction.REOPEN],
 
   [IncidentStatus.CLOSED]: [],
 } as const;
@@ -54,11 +52,14 @@ export const isIncidentOverdue = (
     return false;
   }
 
-  return dueDate < new Date();
+  const today = new Date();
+  const dateToCheck = new Date(dueDate.getTime());
+
+  return dateToCheck < today;
 };
 
 export const getAvailableActions = (
   status: Incident["status"],
-): IncidentAction[] => {
+): IncidentStatus[] => {
   return [...actions[status]];
 };

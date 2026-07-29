@@ -6,37 +6,25 @@ import {
 
 export interface IncidentHistoryDto {
   id: string;
-
   type: string;
-
-  description: string;
-
+  field: string;
+  oldValue?: string;
+  newValue?: string;
   createdAt: Date;
 }
 
 export interface IncidentDto {
   id: string;
-
   title: string;
-
   description: string;
-
   priority: Incident["priority"];
-
   status: Incident["status"];
-
-  dueDate: Date | null;
-
+  dueDate: string | null;
   resolutionNote: string | null;
-
   isOverdue: boolean;
-
   availableActions: string[];
-
   history: IncidentHistoryDto[];
-
   createdAt: Date;
-
   updatedAt: Date;
 }
 
@@ -56,7 +44,7 @@ export const mapIncidentToDto = (
 
     status: incident.status,
 
-    dueDate: incident.dueDate,
+    dueDate: incident.dueDate?.toISOString().split("T")[0] || null,
 
     resolutionNote: incident.resolutionNote,
 
@@ -66,11 +54,10 @@ export const mapIncidentToDto = (
 
     history: (incident.history ?? []).map((item) => ({
       id: item.id,
-
       type: item.type,
-
-      description: item.description,
-
+      field: item.field,
+      oldValue: item.oldValue,
+      newValue: item.newValue,
       createdAt: item.createdAt,
     })),
 

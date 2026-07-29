@@ -8,9 +8,7 @@ import { prisma } from "@/prisma/client";
 
 export class IncidentRepository {
   create = async (data: Prisma.IncidentCreateInput) => {
-    return prisma.incident.create({
-      data,
-    });
+    return prisma.incident.create({ data });
   };
 
   async findById(id: string) {
@@ -29,7 +27,7 @@ export class IncidentRepository {
   }
 
   findAll = async (query: any) => {
-    const { status, priority, page = 1, limit = 10 } = query;
+    const { status, priority, page = 1, limit = 200 } = query;
 
     const skip = (Number(page) - 1) * Number(limit);
 
@@ -80,6 +78,13 @@ export class IncidentRepository {
     return prisma.incident.update({
       where: {
         id,
+      },
+      include: {
+        history: {
+          orderBy: {
+            createdAt: "desc",
+          },
+        },
       },
       data,
     });
