@@ -40,7 +40,6 @@ const main = async () => {
       description: "Nightly backup job failed on production.",
       priority: IncidentPriority.MEDIUM,
       status: IncidentStatus.NEW,
-
       history: {
         create: [
           {
@@ -58,17 +57,16 @@ const main = async () => {
       priority: IncidentPriority.HIGH,
       dueDate: tomorrow,
       status: IncidentStatus.IN_PROGRESS,
-
       history: {
         create: [
-          {
-            type: IncidentHistoryType.CREATED,
-          },
           {
             type: IncidentHistoryType.STARTED,
             field: "status",
             oldValue: IncidentStatus.NEW,
             newValue: IncidentStatus.IN_PROGRESS,
+          },
+          {
+            type: IncidentHistoryType.CREATED,
           },
         ],
       },
@@ -82,17 +80,16 @@ const main = async () => {
       priority: IncidentPriority.HIGH,
       dueDate: yesterday,
       status: IncidentStatus.IN_PROGRESS,
-
       history: {
         create: [
-          {
-            type: IncidentHistoryType.CREATED,
-          },
           {
             type: IncidentHistoryType.STARTED,
             field: "status",
             oldValue: IncidentStatus.NEW,
             newValue: IncidentStatus.IN_PROGRESS,
+          },
+          {
+            type: IncidentHistoryType.CREATED,
           },
         ],
       },
@@ -106,11 +103,13 @@ const main = async () => {
       priority: IncidentPriority.MEDIUM,
       status: IncidentStatus.RESOLVED,
       resolutionNote: "Restarted worker containers and cleared the queue.",
-
       history: {
         create: [
           {
-            type: IncidentHistoryType.CREATED,
+            type: IncidentHistoryType.RESOLVED,
+            field: "status",
+            oldValue: IncidentStatus.IN_PROGRESS,
+            newValue: IncidentStatus.RESOLVED,
           },
           {
             type: IncidentHistoryType.STARTED,
@@ -119,10 +118,7 @@ const main = async () => {
             newValue: IncidentStatus.IN_PROGRESS,
           },
           {
-            type: IncidentHistoryType.RESOLVED,
-            field: "status",
-            oldValue: IncidentStatus.IN_PROGRESS,
-            newValue: IncidentStatus.RESOLVED,
+            type: IncidentHistoryType.CREATED,
           },
         ],
       },
@@ -137,17 +133,13 @@ const main = async () => {
       priority: IncidentPriority.LOW,
       status: IncidentStatus.CLOSED,
       resolutionNote: "Configuration corrected and monitoring added.",
-
       history: {
         create: [
           {
-            type: IncidentHistoryType.CREATED,
-          },
-          {
-            type: IncidentHistoryType.STARTED,
+            type: IncidentHistoryType.CLOSED,
             field: "status",
-            oldValue: IncidentStatus.NEW,
-            newValue: IncidentStatus.IN_PROGRESS,
+            oldValue: IncidentStatus.RESOLVED,
+            newValue: IncidentStatus.CLOSED,
           },
           {
             type: IncidentHistoryType.RESOLVED,
@@ -156,10 +148,13 @@ const main = async () => {
             newValue: IncidentStatus.RESOLVED,
           },
           {
-            type: IncidentHistoryType.CLOSED,
+            type: IncidentHistoryType.STARTED,
             field: "status",
-            oldValue: IncidentStatus.RESOLVED,
-            newValue: IncidentStatus.CLOSED,
+            oldValue: IncidentStatus.NEW,
+            newValue: IncidentStatus.IN_PROGRESS,
+          },
+          {
+            type: IncidentHistoryType.CREATED,
           },
         ],
       },
@@ -173,18 +168,8 @@ const main = async () => {
       priority: IncidentPriority.HIGH,
       dueDate: nextWeek,
       status: IncidentStatus.IN_PROGRESS,
-
       history: {
         create: [
-          {
-            type: IncidentHistoryType.CREATED,
-          },
-          {
-            type: IncidentHistoryType.UPDATED,
-            field: "priority",
-            oldValue: "MEDIUM",
-            newValue: "HIGH",
-          },
           {
             type: IncidentHistoryType.UPDATED,
             field: "dueDate",
@@ -196,6 +181,15 @@ const main = async () => {
             field: "status",
             oldValue: IncidentStatus.NEW,
             newValue: IncidentStatus.IN_PROGRESS,
+          },
+          {
+            type: IncidentHistoryType.UPDATED,
+            field: "priority",
+            oldValue: "MEDIUM",
+            newValue: "HIGH",
+          },
+          {
+            type: IncidentHistoryType.CREATED,
           },
         ],
       },

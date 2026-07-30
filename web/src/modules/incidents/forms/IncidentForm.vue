@@ -128,5 +128,5 @@ const onSubmit = () => {
 const isDeleteModalOpen = ref(false);
 const isDisabled = computed(() => {
   return !!selectedIncident && selectedIncident.status === IncidentStatus.CLOSED;
-})
-</script> 
+});
+</script>
