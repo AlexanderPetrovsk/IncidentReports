@@ -8,6 +8,8 @@
     "dev": "tsx --watch --env-file .env src/server.ts",
     "build": "tsc",
     "start": "node dist/index.js",
+    "prisma:generate": "prisma generate",
+    "prisma:seed": "prisma db seed",
     "format": "prettier --write ."
   },
   "prisma": {
