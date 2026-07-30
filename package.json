@@ -11,6 +11,7 @@
     "dev:backend": "npm run dev -w @monorepo/backend",
     "dev:frontend": "npm run dev -w @monorepo/frontend",
     "db:generate": "npm run prisma:generate -w @monorepo/backend",
+    "db:migrate": "npm run prisma:migrate -w @monorepo/backend",
     "db:seed": "npm run prisma:seed -w @monorepo/backend",
     "build:all": "npm run build --workspaces --if-present"
   }

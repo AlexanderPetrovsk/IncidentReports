@@ -19,6 +19,11 @@ Install dependencies:
 npm install
 ```
 
+Run Migrations:
+```bash
+npm run db:migrate
+```
+
 Generate Prisma Client:
 
 ```bash
