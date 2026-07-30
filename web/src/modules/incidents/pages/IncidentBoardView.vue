@@ -85,7 +85,7 @@ const filters = reactive<IncidentFilterState>({
   limit: 20,
 });
 
-const createForm = reactive<IncidentFormData>({
+let createForm = reactive<IncidentFormData>({
   title: '',
   description: '',
   priority: IncidentPriority.MEDIUM,
@@ -94,7 +94,7 @@ const createForm = reactive<IncidentFormData>({
   resolutionNote: null,
 });
 
-const editForm = reactive<IncidentFormData>({
+let editForm = reactive<IncidentFormData>({
   title: '',
   description: '',
   priority: IncidentPriority.MEDIUM,

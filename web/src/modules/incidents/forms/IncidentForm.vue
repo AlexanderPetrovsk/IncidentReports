@@ -44,7 +44,7 @@
     />
 
     <AppSelect
-      v-if="selectedIncident && !isDisabled"
+      v-if="selectedIncident && !isDisabled && mode === 'Edit'"
       label="Move To:"
       v-model="form.status"
       :options="getAvailableActionOptions(selectedIncident.availableActions)"

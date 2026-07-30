@@ -34,8 +34,8 @@ export class HistoryService {
       incidentId,
       field,
       type,
-      oldValue: oldValue === null ? null : String(oldValue),
-      newValue: newValue === null ? null : String(newValue),
+      oldValue: !oldValue ? null : String(oldValue),
+      newValue: !newValue ? null : String(newValue),
     });
   };
 

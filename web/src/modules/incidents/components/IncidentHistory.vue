@@ -50,7 +50,6 @@ import type { IncidentHistory } from '@monorepo/shared/types/incident.types';
 import { IncidentHistoryType } from '@monorepo/shared/types/incident.types';
 
 import { formatDate } from '../utils/formatDate';
-import { computed } from 'vue';
 
 interface Props {
   history: IncidentHistory[];
